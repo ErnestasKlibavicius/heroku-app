@@ -21,6 +21,4 @@ test:
   database: db/test
 
 production:
-  <<: *default
-  adapter: pg
-  database: db/production
+  url: <%= EVN['DATABASE_URL'] %>
