@@ -21,4 +21,4 @@ test:
   database: db/test
 
 production:
-  url: <%= EVN['DATABASE_URL'] %>
+  url: <%= ENV['DATABASE_URL'] %>
