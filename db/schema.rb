@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810164535) do
+ActiveRecord::Schema.define(version: 20160810165730) do
+
+  create_table "channe_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "channel_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["channel_id"], name: "index_channe_members_on_channel_id", using: :btree
+    t.index ["user_id"], name: "index_channe_members_on_user_id", using: :btree
+  end
 
   create_table "channels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string   "name"
@@ -67,6 +76,8 @@ ActiveRecord::Schema.define(version: 20160810164535) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "channe_members", "channels"
+  add_foreign_key "channe_members", "users"
   add_foreign_key "channels", "teams"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
