@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810165730) do
+ActiveRecord::Schema.define(version: 20160810170620) do
 
   create_table "channe_members", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "channel_id"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 20160810165730) do
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_channels_on_creator_id", using: :btree
     t.index ["team_id"], name: "index_channels_on_team_id", using: :btree
+  end
+
+  create_table "message_readers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_message_readers_on_message_id", using: :btree
+    t.index ["user_id"], name: "index_message_readers_on_user_id", using: :btree
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -79,6 +88,8 @@ ActiveRecord::Schema.define(version: 20160810165730) do
   add_foreign_key "channe_members", "channels"
   add_foreign_key "channe_members", "users"
   add_foreign_key "channels", "teams"
+  add_foreign_key "message_readers", "messages"
+  add_foreign_key "message_readers", "users"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
 end
