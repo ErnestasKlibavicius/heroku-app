@@ -10,13 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810160345) do
+ActiveRecord::Schema.define(version: 20160810162906) do
+
+  create_table "channels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "name"
+    t.integer  "creator_id"
+    t.string   "visibility"
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_channels_on_creator_id", using: :btree
+    t.index ["team_id"], name: "index_channels_on_team_id", using: :btree
+  end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "creator_id"
     t.text     "content",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.integer  "channel_id"
     t.index ["creator_id"], name: "index_messages_on_creator_id", using: :btree
   end
 
@@ -46,4 +58,5 @@ ActiveRecord::Schema.define(version: 20160810160345) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "channels", "teams"
 end
