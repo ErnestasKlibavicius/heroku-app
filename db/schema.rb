@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810145139) do
+ActiveRecord::Schema.define(version: 20160810160345) do
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "creator_id"
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 20160810145139) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.index ["creator_id"], name: "index_messages_on_creator_id", using: :btree
+  end
+
+  create_table "teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "name"
+    t.integer  "creator_id"
+    t.string   "visibility"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_teams_on_creator_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
